@@ -3,6 +3,9 @@ import Table from './Table'
 
 class App extends Component {
   state = {
+    characters: [],
+  }
+  /*state = {
     characters: [
       {
         name: 'Charlie',
