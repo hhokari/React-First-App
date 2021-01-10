@@ -29,8 +29,8 @@ class App extends Component {
       <div className="container">
         <Table characterData={characters} />
       </div>
-    )*/
-  }
+    )
+  }*/
 
   removeCharacter = index => {
     const { characters } = this.state
