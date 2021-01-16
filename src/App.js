@@ -18,8 +18,16 @@ class App extends Component {
     })
   }
 
-  handleSubmit = character => {
+  /*handleSubmit = character => {
     this.setState({ characters: [...this.state.characters, character] })
+  }*/
+
+  handleSubmit = character => {
+   this.makePostCall(character).then( callResult => {
+      if (callResult === true) {
+         this.setState({ characters: [...this.state.characters, character] });
+      }
+   });
   }
 
   componentDidMount() {
@@ -31,6 +39,18 @@ class App extends Component {
     .catch(function (error) {
       //Not handling the error. Just logging into the console.
       console.log(error);
+    });
+  }
+
+  makePostCall(character){
+   return axios.post('http://localhost:5000/users', character)
+    .then(function (response) {
+      console.log(response);
+      return (response.status === 200);
+    })
+    .catch(function (error) {
+      console.log(error);
+      return false;
     });
   }
 
