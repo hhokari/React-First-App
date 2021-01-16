@@ -11,11 +11,15 @@ class App extends Component {
   removeCharacter = index => {
     const { characters } = this.state
 
-    this.setState({
-      characters: characters.filter((character, i) => {
-        return i !== index
-      }),
-    })
+    this.makeDeleteCall(characters[index]).then( callResult => { 
+      if (callResult === true) {
+        this.setState({
+          characters: characters.filter((character, i) => {
+            return i !== index
+          }),
+        })
+      }
+    });
   }
 
   /*handleSubmit = character => {
@@ -57,6 +61,20 @@ class App extends Component {
       //return (response.status === 200);
       //return (response.status === 201);
       return (response);
+    })
+    .catch(function (error) {
+      console.log(error);
+      return false;
+    });
+  }
+
+  makeDeleteCall(character){
+   return axios.delete('http://localhost:5000/users', { data: character })
+    .then(function (response) {
+      console.log(response);
+      //return (response.status === 200);
+      //return (response.status === 201);
+      return (response.status === 200);
     })
     .catch(function (error) {
       console.log(error);
