@@ -22,10 +22,18 @@ class App extends Component {
     this.setState({ characters: [...this.state.characters, character] })
   }*/
 
-  handleSubmit = character => {
+  /*handleSubmit = character => {
    this.makePostCall(character).then( callResult => {
       if (callResult === true) {
          this.setState({ characters: [...this.state.characters, character] });
+      }
+   });
+  }*/
+
+  handleSubmit = character => {
+   this.makePostCall(character).then( callResult => {
+      if (callResult.status === 201) {
+         this.setState({ characters: [...this.state.characters, callResult.data] });
       }
    });
   }
@@ -47,7 +55,8 @@ class App extends Component {
     .then(function (response) {
       console.log(response);
       //return (response.status === 200);
-      return (response.status === 201);
+      //return (response.status === 201);
+      return (response);
     })
     .catch(function (error) {
       console.log(error);
